@@ -36,13 +36,13 @@ class DataGenerator {
      * @return The newly created File object
      *
      */
-    static File createTempLocalFile(String tempFileNamePrefix, String tempFileNameSuffix, int bytesToWrite) throws IOException, IllegalArgumentException{
+    static File createLocalFile(String name, String tempFileNameSuffix, int bytesToWrite) throws IOException, IllegalArgumentException{
 
         File tempFile = null;
         FileOutputStream tempFileOutputStream = null;
         try {
             // Create the temporary file
-            tempFile = File.createTempFile(tempFileNamePrefix, tempFileNameSuffix);
+            tempFile = new File(name+tempFileNameSuffix);
 
             // Write random bytes to the file if requested
             Random random = new Random();
