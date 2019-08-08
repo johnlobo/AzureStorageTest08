@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Azure Storage proof of concept</title>
+    </h:head>
+    <h:body>
+        <h4>Introduce los datos del fichero que quieres subir</h4>
+
+        <h:form>
+            Tienda: <h:inputText id="tienda" size="20" maxlength="20" 
+                                 value="#{userManagedBean.tienda}" /> <br/>
+            Año: <h:inputText id="anyo" size="20" maxlength="20" 
+                              value="#{userManagedBean.anyo}" /><br/>
+            Tipo de contrato: 
+            <h:selectOneMenu value="#{userManagedBean.tipo}">
+                <f:selectItem itemValue = "compra recuperable" itemLabel = "Compra Recuperable"/> 
+                <f:selectItem itemValue = "compro oro" itemLabel = "Compro Oro" /> 
+            </h:selectOneMenu><br/>
+            Número de Contrato:<h:inputText id="id_contrato" size="40" maxlength="60" 
+                                            value="#{userManagedBean.id_contrato}" /><br/>
+            <h:commandButton id="submit" 
+                             value="Almacenar" 
+                             action="#{userManagedBean.subir_fichero()}"/>
+        </h:form>
+        <br />        
+    </h:body>
+</html>
+
