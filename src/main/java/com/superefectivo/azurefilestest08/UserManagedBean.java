@@ -18,11 +18,14 @@ import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
 import java.util.Random;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -45,7 +48,7 @@ public class UserManagedBean implements Serializable {
      * Creates a new instance of UserManagedBean
      */
     public UserManagedBean() {
-        log = new StringBuilder(); 
+        log = new StringBuilder();
     }
 
     public String subir_fichero() throws StorageException {
@@ -54,10 +57,9 @@ public class UserManagedBean implements Serializable {
         FileInputStream fileInputStream = null;
         CloudFileDirectory dir1, dir2 = null;
 
-        System.out.println("\nStarting Process...");        
+        System.out.println("\nStarting Process...");
         log.append("\nStarting Process...\n");
 
-        
         this.URL = "/" + this.tienda + "/" + this.anyo + "/"
                 + this.tipo + "/" + this.id_contrato;
         try {
@@ -76,7 +78,7 @@ public class UserManagedBean implements Serializable {
             fileShare1 = fileClient.getShareReference("scan-docs");
             //Get a reference to the root directory for the share.
             CloudFileDirectory rootDir = fileShare1.getRootDirectoryReference();
-            
+
             //Get a reference to the root directory for the share.
             for (ListFileItem fileItem : rootDir.listFilesAndDirectories()) {
                 System.out.println(fileItem.getUri());
@@ -193,6 +195,18 @@ public class UserManagedBean implements Serializable {
      */
     public void setId_contrato(String id_contrato) {
         this.id_contrato = id_contrato;
+    }
+
+    public void handleFileUpload(FileUploadEvent event) {
+        FacesMessage msg = new FacesMessage("Correcto", event.getFile().getFileName() + " está subido");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void upload(FileUploadEvent event) {
+        UploadedFile uploadedFile = event.getFile();
+        String fileName = uploadedFile.getFileName();
+        String contentType = uploadedFile.getContentType();
+        byte[] contents = uploadedFile.getContents(); // Or getInputStream()
     }
 
 }
